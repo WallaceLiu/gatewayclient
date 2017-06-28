@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<message>
+  <!--上传-->
+  <pre name="标识位" desc="">
+    <flag name="flag" title="开始标记" desc="" format="">
+      0x55,0xAA
+    </flag>
+  </pre>
+  <head name="数据包头" desc="">
+    <segment start="0" len="1" type="word" name="PacketLen" isfield="" split="" transform="ByteNumeral" format="" title="消息长度" desc=""></segment>
+    <segment start="2" len="1" type="word" name="PacketLenVerification" isfield="" split="" transform="ByteNumeral" format="" title="数据包长度校验" desc=""></segment>
+    <segment start="4" len="1" type="byte" name="PacketId" isfield="" split="" transform="ByteNumeral" format="" title="数据包ID" desc=""></segment>
+    <segment start="5" len="1" type="byte" name="Version" isfield="" split="" transform="ByteNumeral" format="" title="协议版本" desc=""></segment>
+  </head>
+  <body name="数据包体" desc="">
+    <!--以下为数据包-->
+    <msg id="0x1601" name="车辆检测数据主动上传" reply="0x00011602" desc="">
+      <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="命令字" desc=""></segment>
+      <segment start="" len="" type="string" name="Obd" isstop="" isfield="1" split="" transform="String" format="" title="OBD串口(设备号)" desc=""></segment>
+      <segment start="" len="" type="string" name="VIN" isstop="" isfield="1" split="" transform="String" format="" title="VIN码" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Pp" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="品牌" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Xl" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="系列" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Nk" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="年款" desc=""></segment>
+      <segment start="" len="" type="string" name="TimeDetected" isstop="" isfield="1" split="" transform="String" format="YYYY-MM-DD hh:mm:ss" title="时间戳" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Bs" isstop="" isfield="1" split="split" transform="ByteNumeral" format="" title="数据属性标识" desc=""></segment>
+      <segment start="" len="" type="" name="split" isstop="" isfield="" split="" transform="" format="" title="数据内容" desc="数据内容">
+        <segment start="" len="" type="" name="0x01" isstop="" isfield="" split="" transform="" format="" title="发动机点火时" desc="数据属性标识">
+          <segment start="" len="" type="string" name="Dhdy" isstop="" isfield="1" split="" transform="String" format="" title="电压" desc=""></segment>
+          <segment start="" len="" type="string" name="Location" isstop="" isfield="" split="" transform="String" format="" title="定位信息" desc="">
+            <segment start="" len="" type="string" name="Sd" isstop="" isfield="1" split="" transform="String" format="" title="车速" desc=""></segment>
+            <segment start="" len="" type="string" name="Jl" isstop="" isfield="1" split="" transform="String" format="" title="当前行程行驶距离" desc=""></segment>
+            <segment start="" len="" type="string" name="Jd" isstop="" isfield="1" split="" transform="Comma" format="" title="经度" desc=""></segment>
+            <segment start="" len="" type="string" name="Wd" isstop="" isfield="1" split="" transform="Comma" format="" title="纬度" desc=""></segment>
+            <segment start="" len="" type="string" name="Fx" isstop="" isfield="1" split="" transform="Comma" format="" title="方向" desc=""></segment>
+            <segment start="" len="" type="string" name="Locate_Time" isstop="" isfield="1" split="" transform="Comma" format="" title="定位时间" desc=""></segment>
+            <segment start="" len="" type="string" name="Locate_Way" isstop="" isfield="1" split="" transform="String" format="" title="定位方式" desc=""></segment>
+          </segment>
+        </segment>
+        <segment start="" len="1" type="byte" name="0x02" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="发动机运行中" desc="数据属性标识">
+          <segment start="" len="1" type="byte" name="Cnt" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="故障码个数" desc=""></segment>
+          <!--循环体-->
+          <for>
+            <segment start="" len="" type="string" name="ErrorCode" isstop="" isfield="1" split="" transform="String" format="" title="故障码1" desc=""></segment>
+            <segment start="" len="" type="string" name="ErrorProperty" isstop="" isfield="1" split="" transform="String" format="" title="故障码属性1" desc=""></segment>
+            <segment start="" len="" type="string" name="ErrorDesc" isstop="" isfield="1" split="" transform="String" format="" title="故障码描述1" desc=""></segment>
+          </for>
+          <segment start="" len="1" type="dword" name="Ljxslc" isstop="" isfield="1" split="1" transform="ByteNumeral" format="" title="累计行驶里程" desc=""></segment>
+          <segment start="" len="" type="string" name="Ljpjyh" isstop="" isfield="1" split="1" transform="String" format="" title="累计平均油耗" desc=""></segment>
+          <segment start="" len="1" type="word" name="Cnt" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="数据流个数" desc="实时数据流(车况信息)"></segment>
+          <!--循环体-->
+          <for>
+            <segment start="" len="1" type="word" name="Vid" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="ID" desc=""></segment>
+            <segment start="" len="" type="string" name="Val" isstop="" isfield="1" split="" transform="String" format="" title="数据流值" desc=""></segment>
+          </for>
+          <segment start="" len="" type="string" name="Location" isstop="" isfield="" split="" transform="String" format="" title="定位信息" desc="">
+            <segment start="" len="" type="string" name="Sd" isstop="" isfield="1" split="" transform="String" format="" title="车速" desc=""></segment>
+            <segment start="" len="" type="string" name="Jl" isstop="" isfield="1" split="" transform="String" format="" title="当前行程行驶距离" desc=""></segment>
+            <segment start="" len="" type="string" name="Jd" isstop="" isfield="1" split="" transform="Comma" format="" title="经度" desc=""></segment>
+            <segment start="" len="" type="string" name="Wd" isstop="" isfield="1" split="" transform="Comma" format="" title="纬度" desc=""></segment>
+            <segment start="" len="" type="string" name="Fx" isstop="" isfield="1" split="" transform="Comma" format="" title="方向" desc=""></segment>
+            <segment start="" len="" type="string" name="Locate_Time" isstop="" isfield="1" split="" transform="Comma" format="" title="定位时间" desc=""></segment>
+            <segment start="" len="" type="string" name="Locate_Way" isstop="" isfield="1" split="" transform="String" format="" title="定位方式" desc=""></segment>
+          </segment>
+        </segment>
+        <segment start="" len="1" type="byte" name="0x03" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="发动机熄火时" desc="数据属性标识">
+          <segment start="0" len="" type="string" name="Bcqddy" isstop="" isfield="1" split="" transform="String" format="" title="本次启动电压" desc=""></segment>
+          <segment start="" len="1" type="dword" name="Bcfdjyxsj" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="本次发动机运行时间" desc=""></segment>
+          <segment start="" len="1" type="dword" name="Bcxslc" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="本次行驶里程" desc=""></segment>
+          <segment start="" len="" type="string" name="Bcpjyh" isstop="" isfield="1" split="" transform="String" format="" title="本次平均耗油" desc=""></segment>
+          <segment start="" len="1" type="dword" name="Bcsdcg120s" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="本次时速超过120km/h运行时间" desc=""></segment>
+          <segment start="" len="1" type="word" name="Bcjjiascs" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="本次急加速次数" desc=""></segment>
+          <segment start="" len="1" type="word" name="Bcjjianscs" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="本次急减速次数" desc=""></segment>
+          <segment start="" len="1" type="word" name="Bcjzxcs" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="本次急转向次数" desc=""></segment>
+          <segment start="" len="" type="string" name="Bcxhdy" isstop="" isfield="1" split="" transform="String" format="" title="本次熄火电压" desc=""></segment>
+          <segment start="" len="" type="string " name="Ljpjyh" isstop="" isfield="1" split="" transform="String" format="" title="累计平均耗油" desc=""></segment>
+          <segment start="" len="1" type="dword" name="Ljxslc" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="累计行驶里程" desc=""></segment>
+          <segment start="" len="1" type="dword" name="Dssj" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="怠速时间" desc="车速为0"></segment>
+          <segment start="" len="1" type="byte" name="Zgsd" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="最高车速" desc=""></segment>
+          <segment start="" len="" type="" name="Location" isstop="" isfield="" split="" transform="String" format="" title="点火时定位信息" desc="">
+            <segment start="" len="" type="string" name="Dh_Sd" isstop="" isfield="1" split="" transform="String" format="" title="车速" desc=""></segment>
+            <segment start="" len="" type="string" name="Dh_Jl" isstop="" isfield="1" split="" transform="String" format="" title="当前行程行驶距离" desc=""></segment>
+            <segment start="" len="" type="string" name="Dh_Jd" isstop="" isfield="1" split="" transform="Comma" format="" title="经度" desc=""></segment>
+            <segment start="" len="" type="string" name="Dh_Wd" isstop="" isfield="1" split="" transform="Comma" format="" title="纬度" desc=""></segment>
+            <segment start="" len="" type="string" name="Dh_Fx" isstop="" isfield="1" split="" transform="Comma" format="" title="方向" desc=""></segment>
+            <segment start="" len="" type="string" name="Dh_Locate_Time" isstop="" isfield="1" split="" transform="Comma" format="" title="定位时间" desc=""></segment>
+            <segment start="" len="" type="string" name="Dh_Locate_Way" isstop="" isfield="1" split="" transform="String" format="" title="定位方式" desc=""></segment>
+          </segment>
+          <segment start="" len="" type="string" name="Location" isstop="" isfield="" split="" transform="String" format="" title="熄火时定位信息" desc="">
+            <segment start="" len="" type="string" name="Xh_Sd" isstop="" isfield="1" split="" transform="String" format="" title="车速" desc=""></segment>
+            <segment start="" len="" type="string" name="Xh_Jl" isstop="" isfield="1" split="" transform="String" format="" title="当前行程行驶距离" desc=""></segment>
+            <segment start="" len="" type="string" name="Xh_Jd" isstop="" isfield="1" split="" transform="Comma" format="" title="经度" desc=""></segment>
+            <segment start="" len="" type="string" name="Xh_Wd" isstop="" isfield="1" split="" transform="Comma" format="" title="纬度" desc=""></segment>
+            <segment start="" len="" type="string" name="Xh_Fx" isstop="" isfield="1" split="" transform="Comma" format="" title="方向" desc=""></segment>
+            <segment start="" len="" type="string" name="Xh_Locate_Time" isstop="" isfield="1" split="" transform="Comma" format="" title="定位时间" desc=""></segment>
+            <segment start="" len="" type="string" name="Xh_Locate_Way" isstop="" isfield="1" split="" transform="String" format="" title="定位方式" desc=""></segment>
+          </segment>
+        </segment>
+        <segment start="" len="" type="" name="0x04" isstop="" isfield="" split="" transform="" format="" title="发动机熄火后" desc="数据属性标识">
+          <segment start="" len="" type="string" name="Xdcdy" isstop="" isfield="1" split="" transform="String" format="" title="蓄电池电压值" desc=""></segment>
+        </segment>
+        <segment start="" len="" type="" name="0x05" isstop="" isfield="" split="" transform="" format="" title="车辆不能检测" desc="数据属性标识">
+        </segment>
+      </segment>
+    </msg>
+    <msg id="0x1602" name="上传汽车报警" reply="0x00011602" desc="">
+      <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="命令字" desc=""></segment>
+      <segment start="" len="" type="string" name="Obd" isstop="" isfield="1" split="" transform="String" format="" title="OBD串口" desc="设备号"></segment>
+      <segment start="" len="" type="string" name="VIN" isstop="" isfield="1" split="" transform="String" format="" title="VIN码" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Pp" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="品牌" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Xl" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="系列" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Nk" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="年款" desc=""></segment>
+      <segment start="" len="" type="string" name="TimeDetected" isstop="" isfield="1" split="" transform="String" format="" title="取得检测数据时间戳" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Bs" isstop="" isfield="1" split="split" transform="ByteNumeral" format="" title="报警类型" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Location" isstop="" isfield="" split="" transform="String" format="" title="定位信息" desc="一个字符串，以逗号分隔各项">
+        <segment start="" len="" type="string" name="Sd" isstop="" isfield="1" split="" transform="String" format="" title="车速" desc=""></segment>
+        <segment start="" len="" type="string" name="Jl" isstop="" isfield="1" split="" transform="String" format="" title="当前行程行驶距离" desc=""></segment>
+        <segment start="" len="" type="string" name="Jd" isstop="" isfield="1" split="" transform="Comma" format="" title="经度" desc=""></segment>
+        <segment start="" len="" type="string" name="Wd" isstop="" isfield="1" split="" transform="Comma" format="" title="纬度" desc=""></segment>
+        <segment start="" len="" type="string" name="Fx" isstop="" isfield="1" split="" transform="Comma" format="" title="方向" desc=""></segment>
+        <segment start="" len="" type="string" name="Locate_Time" isstop="" isfield="1" split="" transform="Comma" format="" title="定位时间" desc=""></segment>
+        <segment start="" len="" type="string" name="Locate_Way" isstop="" isfield="1" split="" transform="String" format="" title="定位方式" desc=""></segment>
+      </segment>
+      <!--报警类型分体-->
+      <segment start="" len="" type="" name="split" isstop="" isfield="" split="" transform="" format="" title="报警类型分体" desc="">
+        <segment start="" len="" type="" name="0x01" isstop="" isfield="" split="" transform="" format="" title="故障码报警" desc="">
+          <segment start="" len="1" type="byte" name="Cnt" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="故障码个数" desc=""></segment>
+          <for>
+            <segment start="" len="" type="string" isstop="" name="ErrorCode" isfield="1" split="" transform="String" format="" title="故障码1" desc=""></segment>
+            <segment start="" len="" type="string" isstop="" name="ErrorCodeProperty" isfield="1" split="" transform="String" format="" title="故障码属性1" desc=""></segment>
+            <segment start="" len="" type="string" isstop="" name="ErrorCodeDesc" isfield="1" split="" transform="String" format="" title="故障码描述1" desc=""></segment>
+          </for>
+        </segment>
+        <segment start="" len="" type="" name="0x02" isstop="" isfield="" split="" transform="" format="" title="碰撞报警" desc=""></segment>
+        <segment start="" len="" type="" name="0x03" isstop="" isfield="" split="" transform="" format="" title="防盗报警" desc="">
+          <segment start="" len="" type="string" isstop="" name="ErrorCode" isfield="1" split="" transform="String" format="" title="故障码1" desc=""></segment>
+          <segment start="" len="" type="string" isstop="" name="ErrorCodeProperty" isfield="1" split="" transform="String" format="" title="故障码属性1" desc=""></segment>
+          <segment start="" len="" type="string" isstop="" name="ErrorCodeDesc" isfield="1" split="" transform="String" format="" title="故障码描述1" desc=""></segment>
+        </segment>
+        <segment start="" len="" type="" name="0x04" isstop="" isfield="" split="" transform="" format="" title="水温报警" desc="">
+          <segment start="" len="" type="string" name="Sw" isstop="" isfield="1" split="" transform="String" format="" title="水温报警" desc=""></segment>
+        </segment>
+        <segment start="" len="" type="" name="0x05" isstop="" isfield="" split="" transform="" format="" title="充电电压报警" desc="">
+          <segment start="" len="" type="string" name="Cddy" isstop="" isfield="1" split="" transform="String" format="" title="充电电压报警" desc=""></segment>
+        </segment>
+        <segment start="" len="" type="" name="0xF0" isstop="" isfield="" split="" transform="" format="" title="拔下OBD报警" desc="">
+          <segment start="" len="" type="string" name="BxOBDsj" isstop="" isfield="1" split="" transform="String" format="YYYY-MM-DD hh:mm:ss" title="拔下OBD报警" desc=""></segment>
+        </segment>
+      </segment>
+    </msg>
+    <msg id="0x1606" name="位置数据" reply="0x00011602" desc="">
+      <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="命令字" desc=""></segment>
+      <segment start="" len="" type="string" name="Obd" isstop="" isfield="1" split="" transform="String" format="" title="OBD串口(设备号)" desc=""></segment>
+      <segment start="" len="" type="string" name="VIN" isstop="" isfield="1" split="" transform="String" format="" title="VIN码" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Pp" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="品牌" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Xl" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="系列" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Nk" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="年款" desc=""></segment>
+      <segment start="" len="1" type="word" name="Cnt" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="定位数据个数" desc=""></segment>
+      <!--循环体-->
+      <for>
+        <segment start="" len="" type="string" name="TimeDetected" isstop="" isfield="1" split="" transform="String" format="" title="取得检测数据时间戳" desc=""></segment>
+        <segment start="" len="" type="string" name="Location" isstop="" isfield="" split="" transform="String" format="" title="定位信息" desc="">
+          <segment start="" len="" type="string" name="Sd" isstop="" isfield="1" split="" transform="String" format="" title="车速" desc=""></segment>
+          <segment start="" len="" type="string" name="Jl" isstop="" isfield="1" split="" transform="String" format="" title="当前行程行驶距离" desc=""></segment>
+          <segment start="" len="" type="string" name="Jd" isstop="" isfield="1" split="" transform="Comma" format="" title="经度" desc=""></segment>
+          <segment start="" len="" type="string" name="Wd" isstop="" isfield="1" split="" transform="Comma" format="" title="纬度" desc=""></segment>
+          <segment start="" len="" type="string" name="Fx" isstop="" isfield="1" split="" transform="Comma" format="" title="方向" desc=""></segment>
+          <segment start="" len="" type="string" name="Locate_Time" isstop="" isfield="1" split="" transform="Comma" format="" title="定位时间" desc=""></segment>
+          <segment start="" len="" type="string" name="Locate_Way" isstop="" isfield="1" split="" transform="String" format="" title="定位方式" desc=""></segment>
+        </segment>
+      </for>
+    </msg>
+    <msg id="0x1603" name="从服务器取得参数" reply="0x00021602" desc="" page="">
+      <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="命令字" desc=""></segment>
+      <segment start="" len="" type="string" name="Obd" isstop="" isfield="1" split="" transform="String" format="" title="OBD串口(设备号)" desc=""></segment>
+      <segment start="" len="" type="string" name="VIN" isstop="" isfield="1" split="" transform="String" format="" title="VIN码" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Pp" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="品牌" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Xl" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="系列" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Nk" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="年款" desc=""></segment>
+      <segment start="0" len="1" type="string" name="Pl" isstop="" isfield="1" split="" transform="String" format="" title="排量" desc=""></segment>
+      <segment start="" len="" type="string" name="Yjbbh" isstop="" isfield="1" split="" transform="String" format="" title="硬件版本号" desc=""></segment>
+      <segment start="" len="" type="string" name="Gjbbh" isstop="" isfield="1" split="" transform="String" format="" title="固件版本号" desc=""></segment>
+      <segment start="" len="1" type="string" name="Rjbbh" isstop="" isfield="1" split="" transform="String" format="" title="软件版本号" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Zdcxlx" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="诊断程序类型" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Hfccszxh" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="恢复出厂设置序号" desc=""></segment>
+      <segment start="" len="1" type="word" name="Dwsjdsscjg" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="定位数据定时上传间隔" desc=""></segment>
+    </msg>
+    <msg id="0x1608" name="车辆检测-补" reply="0x00011602" desc="">
+      <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="命令字" desc=""></segment>
+      <segment start="" len="" type="string" name="Obd" isstop="" isfield="1" split="" transform="String" format="" title="OBD串口(设备号)" desc=""></segment>
+      <segment start="" len="" type="string" name="Xdcdy" isstop="" isfield="1" split="" transform="String" format="" title="蓄电池电压值" desc=""></segment>
+      <segment start="" len="1" type="byte" name="blz1" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="保留值1" desc=""></segment>
+      <segment start="" len="1" type="byte" name="blz2" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="保留值2" desc=""></segment>
+    </msg>
+    <!--<msg id="0x1605" name="上传调试数据" reply="" desc="0x00011602" page="">
+      <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="命令字" desc=""></segment>
+      <segment start="" len="" type="string" name="Obd" isstop="" isfield="1" split="" transform="String" format="" title="OBD串口(设备号)" desc=""></segment>
+      <segment start="" len="" type="string" name="VIN" isstop="" isfield="1" split="" transform="String" format="" title="VIN码" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Pp" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="品牌" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Xl" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="系列" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Nk" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="年款" desc=""></segment>
+      <segment start="" len="" type="string" name="TimeDetected" isstop="" isfield="1" split="" transform="String" format="" title="取得检测数据时间戳1" desc=""></segment>
+    </msg>-->
+    <!--<msg id="0x1607" name="冻结帧数据" reply="" desc="0x00011602" page="">
+      <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="命令字" desc=""></segment>
+      <segment start="" len="" type="string" name="Obd" isstop="" isfield="1" split="" transform="String" format="" title="OBD串口(设备号)" desc=""></segment>
+      <segment start="" len="" type="string" name="VIN" isstop="" isfield="1" split="" transform="String" format="" title="VIN码" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Pp" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="品牌" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Xl" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="系列" desc=""></segment>
+      <segment start="" len="1" type="byte" name="Nk" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="年款" desc=""></segment>
+      <segment start="" len="1" type="word" name="Cnt" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="冻结帧个数" desc=""></segment>
+      <for>
+        <segment start="" len="1" type="word" name="Vid" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="ID1" desc=""></segment>
+        <segment start="" len="" type="string" name="Value" isstop="" isfield="1" split="" transform="String" format="" title="数据流值1" desc=""></segment>
+      </for>
+    </msg>-->
+    <!--<msg id="0x1608" name="怠速车况数据" reply="" desc="0x00011602" page="">
+      <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="命令字" desc=""></segment>
+      <segment start="" len="" type="string" name="Obd" isstop="" isfield="" split="" transform="String" format="" title="OBD串口(设备号)" desc=""></segment>
+      <segment start="" len="" type="string" name="VIN" isstop="" isfield="" split="" transform="String" format="" title="VIN码" desc=""></segment>
+      <segment start="" len="1" type="byte" name="品牌" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="品牌" desc=""></segment>
+      <segment start="" len="1" type="byte" name="系列" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="系列" desc=""></segment>
+      <segment start="" len="1" type="byte" name="年款" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="年款" desc=""></segment>
+      <segment start="" len="" type="string" name="数据流个数" isstop="" isfield="" split="" transform="String" format="" title="数据流个数" desc="实时数据流(车况信息)"></segment>
+      <for>
+        <segment start="" len="1" type="word" name="ID" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="ID1" desc=""></segment>
+        <segment start="" len="" type="string" name="数据流值" isstop="" isfield="" split="" transform="String" format="" title="数据流值1" desc=""></segment>
+      </for>
+    </msg>-->
+    <!--<msg id="0x1609" name="定制上传数据" reply="" desc="0x00011602" page="">
+      <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="命令字" desc=""></segment>
+      <segment start="" len="" type="string" name="Obd" isstop="" isfield="" split="" transform="String" format="" title="OBD串口(设备号)" desc=""></segment>
+      <segment start="" len="" type="string" name="VIN" isstop="" isfield="" split="" transform="String" format="" title="VIN码" desc=""></segment>
+      <segment start="" len="1" type="byte" name="品牌" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="品牌" desc=""></segment>
+      <segment start="" len="1" type="byte" name="系列" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="系列" desc=""></segment>
+      <segment start="" len="1" type="byte" name="年款" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="年款" desc=""></segment>
+      <segment start="" len="" type="string" name="取得检测数据时间戳1" isstop="" isfield="" split="" transform="String" format="" title="取得检测数据时间戳1" desc=""></segment>
+      <segment start="" len="1" type="word" name="定制数据请求ID" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="定制数据请求ID" desc=""></segment>
+      <segment start="" len="1" type="word" name="数据包长度" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="数据包长度" desc=""></segment>
+      <segment start="" len="" type="byte" name="数据包内容" isstop="" isfield="" split="" transform="String" format="" title="数据包内容" desc=""></segment>
+    </msg>-->
+    <!--推送-->
+    <!--<msg id="0x1621" name="取得车辆当前检测数据" reply="" desc="">
+
+    </msg>-->
+    <!--<msg id="0x1622" name="根据索引ID取得相应的检测数据" reply="" desc="">
+
+    </msg>-->
+    <!--<msg id="0x1623" name="车辆诊断参数设定" reply="" desc="">
+
+    </msg>-->
+    <!--<msg id="0x1624" name="清空累计平均耗油" reply="" desc="">
+
+    </msg>-->
+    <!--<msg id="0x1625" name="取得系统版本信息" reply="" desc="">
+
+    </msg>-->
+    <!--<msg id="0x1626" name="清除车辆故障码" reply="" desc="">
+
+    </msg>-->
+    <!--以下为应答-->
+    <msg id="0x00011602" name="应答" reply="" desc="">
+      <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="命令字" desc=""></segment>
+      <segment start="2" len="1" type="byte" name="ErrorCode" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="错误代码" desc=""></segment>
+    </msg>
+    <msg id="0x00021602" name="从服务器取得参数应答" reply="" desc="">
+      <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="命令字" desc=""></segment>
+      <segment start="2" len="1" type="byte" name="恢复出厂设置Seq" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="恢复出厂设置序号" desc=""></segment>
+      <segment start="3" len="1" type="byte" name="是否执行清码动作" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="是否执行清码动作" desc=""></segment>
+      <segment start="4" len="1" type="byte" name="Brand" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="品牌" desc=""></segment>
+      <segment start="5" len="1" type="byte" name="Series" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="系列" desc=""></segment>
+      <segment start="6" len="1" type="byte" name="Model" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="年款" desc=""></segment>
+      <segment start="" len="" type="string" name="Displacement" isstop="" isfield="" split="" transform="String" format="" title="排量" desc="">
+        <segment start="" len="" type="string" name="DisplacementValue" isstop="" isfield="" split="" transform="String" format="" title="排量数值" desc=""></segment>
+        <segment start="" len="" type="string" name="Type" isstop="" isfield="" split="" transform="String" format="L,T" title="类型" desc=""></segment>
+      </segment>
+      <segment start="" len="" type="string" name="GetParamsIP" isstop="" isfield="" split="" transform="String" format="" title="取参数数据地址" desc=""></segment>
+      <segment start="" len="1" type="word" name="GetParamsPort" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="取参数数据端口" desc=""></segment>
+      <segment start="" len="" type="string" name="ActiveUpLoadIP" isstop="" isfield="" split="" transform="String" format="" title="主动上传数据地址" desc=""></segment>
+      <segment start="" len="1" type="word" name="ActiveUpLoadPort" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="主动上传数据端口" desc=""></segment>
+      <segment start="" len="" type="string" name="AlarmUploadIP" isstop="" isfield="" split="" transform="String" format="" title="报警数据上传地址" desc=""></segment>
+      <segment start="" len="1" type="word" name="AlarmUploadPort" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="报警数据上传端口" desc=""></segment>
+      <segment start="" len="" type="string" name="SMSRecoveryUploadIP" isstop="" isfield="" split="" transform="String" format="" title="短信恢复数据上传地址" desc=""></segment>
+      <segment start="" len="1" type="word" name="SMSRecoveryUploadPort" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="短信恢复数据上传端口" desc=""></segment>
+      <segment start="" len="" type="string" name="LocationUploadIP" isstop="" isfield="" split="" transform="String" format="" title="定位信息数据上传地址" desc=""></segment>
+      <segment start="" len="1" type="word" name="LocationUploadPort" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="定位信息数据上传端口" desc=""></segment>
+      <segment start="" len="1" type="word" name="关机临界电压值" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="关机临界电压值" desc=""></segment>
+      <segment start="" len="1" type="word" name="行驶中上传数据间隔时间" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="行驶中上传数据间隔时间" desc=""></segment>
+      <segment start="" len="1" type="word" name="熄火后电压数据总数" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="熄火后电压数据总数" desc=""></segment>
+      <for>
+        <segment start="" len="1" type="byte" name="熄火后电池电压阈值" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="熄火后电池电压阈值" desc=""></segment>
+      </for>
+      <segment start="" len="1" type="word" name="熄火后关闭时间点" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="熄火后关闭时间点" desc=""></segment>
+      <segment start="" len="" type="string" name="软件升级ID" isstop="" isfield="" split="" transform="String" format="" title="软件升级ID" desc=""></segment>
+      <segment start="" len="1" type="string" name="TimeStamp" isstop="" isfield="" split="" transform="String" format="YYYY-MM-DD hh:mm:ss" title="时间戳" desc=""></segment>
+      <segment start="" len="1" type="word" name="LocateIntervalDistance" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="定位间隔距离" desc=""></segment>
+      <segment start="" len="1" type="word" name="CustomRequestID" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="定制数据请求ID" desc=""></segment>
+    </msg>
+  </body>
+  <!--以下为失败应答-->
+  <failReply id="0x00000001" name="失败应答" reply="" desc="">
+    <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="命令字" desc=""></segment>
+    <segment start="2" len="1" type="byte" name="ErrorCode" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="错误代码" desc=""></segment>
+  </failReply>
+  <verification name="验证码" desc="">
+    <segment start="0" len="1" type="word" name="verification" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="验证码" desc=""></segment>
+  </verification>
+  <!--概要信息-->
+  <summary name="概要" desc="">
+    <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="命令字" desc=""></segment>
+  </summary>
+  <service>
+    <servername>0.0.0.0</servername>
+    <serverport>0</serverport>
+  </service>
+</message>

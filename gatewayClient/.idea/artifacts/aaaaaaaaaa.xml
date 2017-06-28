@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact name="aaaaaaaaaa">
+    <output-path>$PROJECT_DIR$/out/artifacts/aaaaaaaaaa</output-path>
+    <root id="root">
+      <element id="module-output" name="gatewayClient" />
+      <element id="library" level="project" name="GOPATH &lt;gatewayClient&gt;" />
+    </root>
+  </artifact>
+</component>

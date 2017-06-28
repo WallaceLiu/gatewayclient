@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<protocol title="shinco" recognition="bj0,bj1">
+  <head id="head" title="数据包头" desc="数据包头">
+    <segment start="0" len="1" ty="byte" id="bj0" isstop="0" isfield="0" isloop="0" splitid="" transform="ASCII" format="" title="开始标记" desc=""><value>40</value></segment>
+    <segment start="1" len="1" ty="byte" id="bj1" isstop="0" isfield="0" isloop="0" splitid="" transform="ASCII" format="" title="开始标记" desc=""><value>40</value></segment>
+    <segment start="2" len="2" ty="byte" id="xxcd" isstop="0" isfield="1" isloop="0" splitid="" transform="NUMERAL_TO_INT16" format="" title="消息长度" desc=""></segment>
+    <segment start="4" len="2" ty="byte" id="xxlsh" isstop="0" isfield="1" isloop="0" splitid="" transform="NUMERAL_TO_INT16" format="" title="消息流水号" desc=""></segment>
+    <segment start="6" len="7" ty="byte" id="sbid" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="设备ID" desc=""></segment>
+    <segment start="13" len="2" ty="byte" id="FuncId" isstop="0" isfield="1" isloop="0" splitid="" transform="NUMERAL_TO_INT16" format="" title="功能ID" desc=""></segment>
+  </head>
+  <body id="body" title="数据段" desc="">
+    <msg id="0002" title="终端登录" reply="8002" desc="">
+      <segment start="15" len="24" ty="byte" id="CPUID" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="CPU-ID" desc=""></segment>
+      <segment start="39" len="15" ty="byte" id="IMSI" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="IMSI" desc=""></segment>
+      <segment start="54" len="20" ty="byte" id="CCID" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="CCID" desc=""></segment>
+      <segment start="74" len="15" ty="byte" id="IMEI" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="IMEI" desc=""></segment>
+    </msg>
+    <msg id="0003" title="终端上报链路心跳" reply="8000" desc="">
+    </msg>
+    <msg id="0004" title="终端请求时间同步" reply="10004" desc="">
+    </msg>
+    <msg id="0005" title="终端上报版本信息" reply="8000" desc="" page="">
+      <segment start="0" len="16" ty="byte" id="Cmd" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="车机版本信息" desc=""></segment>
+      <segment start="" len="10" ty="byte" id="Obd" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="编译日期" desc=""></segment>
+      <segment start="" len="10" ty="byte" id="VIN" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="GSM模块型号" desc=""></segment>
+    </msg>
+    <msg id="0006" title="终端上报车辆唯一识别码" reply="8000" desc="">
+      <segment start="0" len="17" ty="byte" id="vin" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="VIN码" desc=""></segment>
+      <segment start="" len="1" ty="byte" id="dot" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="逗号" desc=""></segment>
+      <segment start="" len="1" ty="byte" id="cid" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="CID码" desc=""></segment>
+      <segment start="" len="1" ty="byte" id="dot" isstop="0" isfield="0" isloop="0" splitid="" transform="ASCII" format="" title="逗号" desc=""></segment>
+      <segment start="" len="1" ty="byte" id="cvn" isstop="0" isfield="1" isloop="0" splitid="" transform="HEX" format="" title="CVN码" desc=""></segment>
+    </msg>
+    <msg id="0010" title="终端上报GPS定位包" reply="" desc="8000" page="">
+      <segment start="0" len="1" ty="byte" id="cnt" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="包个数" desc="">
+        <segment start="" len="6" ty="byte" id="utcsj" isstop="0" isfield="1" isloop="0" splitid="" transform="String" format="" title="UTC时间" desc=""></segment>
+        <segment start="" len="4" ty="byte" id="wd" isstop="0" isfield="1" isloop="0" splitid="" transform="String" format="" title="纬度" desc=""></segment>
+        <segment start="" len="4" ty="byte" id="jd" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="经度" desc=""></segment>
+        <segment start="" len="2" ty="byte" id="sd" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="速度" desc=""></segment>
+        <segment start="" len="2" ty="byte" id="fxj" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="方向角" desc=""></segment>
+        <segment start="" len="4" ty="byte" id="hb" isstop="0" isfield="1" isloop="0" splitid="" transform="String" format="" title="海拔" desc=""></segment>
+        <segment start="" len="1" ty="byte" id="dwxs" isstop="0" isfield="1" isloop="0" splitid="" transform="String" format="" title="定位星数" desc=""></segment>
+        <segment start="" len="1" ty="byte" id="pdopjd" isstop="0" isfield="1" isloop="0" splitid="" transform="String" format="" title="PDOP精度" desc=""></segment>
+        <segment start="" len="1" ty="byte" id="hdopjd" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="HDOP精度" desc=""></segment>
+        <segment start="" len="1" ty="byte" id="vdopjd" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="VDOP精度" desc=""></segment>
+        <segment start="" len="1" ty="byte" id="ztw" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="状态位" desc=""></segment>
+        <segment start="" len="2" ty="byte" id="dpdy" isstop="0" isfield="1" isloop="0" splitid="" transform="String" format="" title="电瓶电压" desc=""></segment>
+        <segment start="" len="2" ty="byte" id="cs" isstop="0" isfield="1" isloop="0" splitid="" transform="String" format="" title="车速" desc=""></segment>
+        <segment start="" len="2" ty="byte" id="fdjzs" isstop="0" isfield="1" isloop="0" splitid="" transform="String" format="" title="发动机转速" desc=""></segment>
+        <segment start="" len="4" ty="byte" id="ljlc" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="累计里程" desc=""></segment>
+        <segment start="" len="4" ty="byte" id="liyh" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="累计油耗" desc=""></segment>
+        <segment start="" len="4" ty="byte" id="lixssj" isstop="0" isfield="1" isloop="0" splitid="" transform="ASCII" format="" title="累计行驶时间" desc=""></segment>
+        <segment start="" len="4" ty="byte" id="gpssjc" isstop="0" isfield="1" isloop="0"  splitid="" transform="String" format="" title="GPS信息时间戳" desc=""></segment>
+      </segment>
+    </msg>
+  </body>
+  <reply id="reply" title="应答" desc="">
+    <msg id="8000" title="通用应答" reply="" desc="">
+      <segment start="0" len="1" ty="byte" id="res" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="应答" desc=""><value>00</value></segment>
+      <segment start="0" len="1" ty="byte" id="res" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="应答" desc=""><value>01</value></segment>
+      <segment start="0" len="1" ty="byte" id="res" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="应答" desc=""><value>02</value></segment>
+      <segment start="0" len="1" ty="byte" id="res" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="应答" desc=""><value>03</value></segment>
+      <segment start="0" len="1" ty="byte" id="res" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="应答" desc=""><value>04</value></segment>
+      <segment start="0" len="1" ty="byte" id="res" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="应答" desc=""><value>EE</value></segment>
+    </msg>
+    <msg id="8002" title="终端登录应答" reply="" desc="">
+      <segment start="0" len="1" ty="byte" id="res" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="应答" desc=""><value>00</value></segment>
+      <segment start="0" len="1" ty="byte" id="res" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="应答" desc=""><value>01</value></segment>
+      <segment start="0" len="1" ty="byte" id="res" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="应答" desc=""><value>02</value></segment>
+      <segment start="0" len="1" ty="byte" id="res" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="应答" desc=""><value>03</value></segment>
+      <segment start="0" len="1" ty="byte" id="res" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="应答" desc=""><value>04</value></segment>
+    </msg>
+    <msg id="10004" title="终端请求时间同步应答" reply="" desc="">
+      <segment start="0" len="1" ty="byte" id="y" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="年" desc=""></segment>
+      <segment start="1" len="1" ty="byte" id="m" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="月" desc=""></segment>
+      <segment start="2" len="1" ty="byte" id="d" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="日" desc=""></segment>
+      <segment start="3" len="1" ty="byte" id="hh" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="时" desc=""></segment>
+      <segment start="4" len="1" ty="byte" id="mi" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="分" desc=""></segment>
+      <segment start="5" len="1" ty="byte" id="ss" isstop="0" isfield="1" isloop="0" splitid="" transform="" format="" title="秒" desc=""></segment>
+    </msg>
+  </reply>
+  <crc id="crc" title="验证码" desc="">
+    <segment start="0" len="2" ty="byte" id="crc" isstop="0" isfield="1" isloop="0" splitid="" transform="NUMERAL_TO_INT16" format="" title="验证码" desc=""></segment>
+  </crc>
+</protocol>

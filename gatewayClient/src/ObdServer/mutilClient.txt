@@ -1,0 +1,121 @@
+package main
+
+import (
+	"flag"
+	"fmt"
+	"log"
+	"net"
+	"os"
+	"os/signal"
+	//"simpleServer/cnf"
+	"common"
+	"time"
+)
+
+const (
+	SERVER_IPANDPORT = "127.0.0.1:8888" //"192.168.5.20:8888" //
+	CLIENT_NUM       = 64000            //64000
+)
+
+func send(conn net.Conn) {
+	defer conn.Close()
+
+	username := conn.LocalAddr().String()
+	serverName := conn.RemoteAddr().String()
+
+	cnt := common.GetRandomInt(CLIENT_NUM)
+
+	for {
+
+		log.Printf("%s	%s 	w=%d\n", username, time.Now().Local(), cnt)
+
+		wl, err := conn.Write([]byte(fmt.Sprintf("%d", cnt)))
+		fmt.Println(fmt.Sprintf("%s>>>%s	%d	", username, serverName, cnt), wl > 0)
+		if err != nil {
+			fmt.Println(fmt.Sprintf("%s>>>%s	%d	false	", username, serverName, cnt), err.Error())
+			break
+		}
+		cnt++
+		//buf := make([]byte, 1024)
+		//for {
+		//	rl, err := conn.Read(buf)
+		//	if err != nil {
+		//		fmt.Println(fmt.Sprintf("Read Err from %s %s", conn.RemoteAddr(), err.Error()))
+		//		log.Fatalf("Read	-	-	-	%s\n", err.Error())
+		//		continue
+		//	}
+		//
+		//	log.Printf("%s	%s 	r=%s\n", conn.LocalAddr().String(), time.Now().Local(), string(buf[0:rl]))
+		//}
+
+		time.Sleep(time.Second * 5)
+	}
+}
+
+func create(address string) {
+	addr, err := net.ResolveTCPAddr("tcp4", address)
+	if err != nil {
+		log.Fatalf("ResolveTCPAddr	-	%s\n", err.Error())
+		return
+	}
+
+	conn, err := net.DialTCP("tcp", nil, addr)
+	if err != nil {
+		fmt.Println("DialTCP Err：", err.Error())
+		log.Fatalf("DialTCP	-	%s\n", err.Error())
+		return
+	}
+
+	go send(conn)
+
+	//defer conn.Close()
+
+	buf := make([]byte, 1024)
+
+	for {
+		rl, err := conn.Read(buf)
+		if err != nil {
+			fmt.Println(fmt.Sprintf("Read Err from %s %s", conn.RemoteAddr(), err.Error()))
+			log.Fatalf("Read	-	-	-	%s\n", err.Error())
+			continue
+		}
+
+		log.Printf("%s	%s 	r=%s\n", conn.LocalAddr().String(), time.Now().Local(), string(buf[0:rl]))
+	}
+}
+
+var logFileName = flag.String("log", "mutilClient.log", "Log file name")
+
+//var conf *cnf.ObdServerConfig
+
+func init() {
+
+	logFile, logErr := os.OpenFile(*logFileName, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+	if logErr != nil {
+		fmt.Println("Fail to find", *logFile, "client start Failed")
+		return
+	}
+
+	log.SetOutput(logFile)
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+
+	//conf = cnf.GetConfig()
+}
+
+func main() {
+	signals := make(chan os.Signal, 1)
+	signal.Notify(signals, os.Interrupt)
+
+	for i := 1; i <= CLIENT_NUM; i++ {
+		time.Sleep(time.Millisecond * 10)
+
+		go func() {
+			create(SERVER_IPANDPORT)
+		}()
+	}
+
+	<-signals
+
+	time.Sleep(time.Second * 2)
+	fmt.Print("...End")
+}

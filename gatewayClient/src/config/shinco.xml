@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<message>
+  <!--上传-->
+  <flag name="标识位" desc="">
+    <segment name="flag" title="开始标记" desc="" format="">40</segment>
+    <segment name="flag" title="开始标记" desc="" format="">40</segment>
+  </flag>
+  <head name="数据包头" desc="">
+    <segment start="0" len="2" type="word" name="PacketLen" isfield="" split="" transform="ByteNumeral" format="" title="消息长度" desc=""></segment>
+    <segment start="2" len="2" type="word" name="PacketLenVerification" isfield="" split="" transform="ByteNumeral" format="" title="消息流水号" desc=""></segment>
+    <segment start="4" len="7" type="7byte" name="PacketId" isfield="" split="" transform="ByteNumeral" format="" title="设备ID" desc=""></segment>
+    <segment start="11" len="2" type="word" name="Version" isfield="" split="" transform="ByteNumeral" format="" title="功能ID" desc=""></segment>
+  </head>
+  <body name="数据段" desc="">
+    <!--以下为数据包-->
+    <msg id="0002" name="终端登录" reply="8002" desc="">
+      <segment start="0" len="24" type="byte" name="Cmd" isstop="" isfield="1" split="" transform="ASCII" format="" title="CPU-ID" desc=""></segment>
+      <segment start="24" len="15" type="byte" name="Obd" isstop="" isfield="1" split="" transform="ASCII" format="" title="IMSI" desc=""></segment>
+      <segment start="39" len="20" type="byte" name="VIN" isstop="" isfield="1" split="" transform="ASCII" format="" title="CCID" desc=""></segment>
+      <segment start="59" len="15" type="byte" name="Pp" isstop="" isfield="1" split="" transform="ASCII" format="" title="IMEI" desc=""></segment>
+    </msg>
+    <msg id="0003" name="终端上报链路心跳" reply="8000" desc="">
+    </msg>
+    <msg id="0004" name="终端请求时间同步" reply="10004" desc="">
+    </msg>
+    <msg id="0005" name="终端上报版本信息" reply="8000" desc="" page="">
+      <segment start="0" len="16" type="byte" name="Cmd" isstop="" isfield="1" split="" transform="ASCII" format="" title="车机版本信息" desc=""></segment>
+      <segment start="" len="10" type="byte" name="Obd" isstop="" isfield="1" split="" transform="ASCII" format="" title="编译日期" desc=""></segment>
+      <segment start="" len="10" type="byte" name="VIN" isstop="" isfield="1" split="" transform="ASCII" format="" title="GSM模块型号" desc=""></segment>
+    </msg>
+    <msg id="0006" name="终端上报车辆唯一识别码" reply="8000" desc="">
+      <segment start="0" len="1" type="word" name="Cmd" isstop="" isfield="1" split="" transform="ASCII" format="" title="VIN码" desc=""></segment>
+      <segment start="" len="" type="string" name="Obd" isstop="" isfield="1" split="" transform="ASCII" format="" title="逗号" desc=""></segment>
+      <segment start="" len="" type="string" name="Xdcdy" isstop="" isfield="1" split="" transform="ASCII" format="" title="CID码" desc=""></segment>
+      <segment start="" len="1" type="byte" name="blz1" isstop="" isfield="" split="" transform="ASCII" format="" title="逗号" desc=""></segment>
+      <segment start="" len="1" type="byte" name="blz2" isstop="" isfield="" split="" transform="HEX" format="" title="CVN码" desc=""></segment>
+    </msg>
+    <msg id="0010" name="终端上报GPS定位包" reply="" desc="8000" page="">
+      <segment start="0" len="1" type="byte" name="Cmd" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="包个数" desc=""></segment>
+      <for>
+        <segment start="" len="6" type="byte" name="Obd" isstop="" isfield="1" split="" transform="String" format="" title="UTC时间" desc=""></segment>
+        <segment start="" len="4" type="byte" name="VIN" isstop="" isfield="1" split="" transform="String" format="" title="纬度" desc=""></segment>
+        <segment start="" len="4" type="byte" name="Pp" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="经度" desc=""></segment>
+        <segment start="" len="2" type="byte" name="Xl" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="速度" desc=""></segment>
+        <segment start="" len="2" type="byte" name="Nk" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="方向角" desc=""></segment>
+        <segment start="" len="4" type="byte" name="TimeDetected" isstop="" isfield="1" split="" transform="String" format="" title="海拔" desc=""></segment>
+        <segment start="" len="1" type="byte" name="Obd" isstop="" isfield="1" split="" transform="String" format="" title="定位星数" desc=""></segment>
+        <segment start="" len="1" type="byte" name="VIN" isstop="" isfield="1" split="" transform="String" format="" title="PDOP经度" desc=""></segment>
+        <segment start="" len="1" type="byte" name="Pp" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="HDOP精度" desc=""></segment>
+        <segment start="" len="1" type="byte" name="Xl" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="VDOP精度" desc=""></segment>
+        <segment start="" len="1" type="byte" name="Nk" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="状态位" desc=""></segment>
+        <segment start="" len="2" type="byte" name="TimeDetected" isstop="" isfield="1" split="" transform="String" format="" title="电瓶电压" desc=""></segment>
+        <segment start="" len="2" type="byte" name="Obd" isstop="" isfield="1" split="" transform="String" format="" title="车速" desc=""></segment>
+        <segment start="" len="2" type="byte" name="VIN" isstop="" isfield="1" split="" transform="String" format="" title="发动机转速" desc=""></segment>
+        <segment start="" len="4" type="byte" name="Pp" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="累计里程" desc=""></segment>
+        <segment start="" len="4" type="byte" name="Xl" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="累计油耗" desc=""></segment>
+        <segment start="" len="4" type="byte" name="Nk" isstop="" isfield="1" split="" transform="ByteNumeral" format="" title="累计行驶时间" desc=""></segment>
+        <segment start="" len="4" type="byte" name="TimeDetected" isstop="" isfield="1" split="" transform="String" format="" title="GPS信息时间戳" desc=""></segment>
+      </for>
+    </msg>
+  </body>
+  <!--应答-->
+  <reply id="" name="失败应答" reply="" desc="">
+    <msg id="8000" name="通用应答" reply="" desc="00,01,02,03,04,EE">
+      <segment start="0" len="1" type="byte" name="res" isstop="" isfield="" split="" transform="" format="" title="应答" desc=""></segment>
+    </msg>
+    <msg id="8002" name="终端登录应答" reply="" desc="00,01,02,03,04">
+      <segment start="0" len="1" type="byte" name="res" isstop="" isfield="" split="" transform="" format="" title="应答" desc=""></segment>
+    </msg>
+    <msg id="10004" name="终端请求时间同步应答" reply="" desc="">
+      <segment start="0" len="1" type="byte" name="y" isstop="" isfield="" split="" transform="" format="" title="年" desc=""></segment>
+      <segment start="1" len="1" type="byte" name="m" isstop="" isfield="" split="" transform="" format="" title="月" desc=""></segment>
+      <segment start="2" len="1" type="byte" name="d" isstop="" isfield="" split="" transform="" format="" title="日" desc=""></segment>
+      <segment start="3" len="1" type="byte" name="hh" isstop="" isfield="" split="" transform="" format="" title="时" desc=""></segment>
+      <segment start="4" len="1" type="byte" name="mi" isstop="" isfield="" split="" transform="" format="" title="分" desc=""></segment>
+      <segment start="5" len="1" type="byte" name="ss" isstop="" isfield="" split="" transform="" format="" title="秒" desc=""></segment>
+    </msg>
+  </reply>
+  <crc name="验证码" desc="">
+    <segment start="0" len="2" type="word" name="verification" isstop="" isfield="" split="" transform="ByteNumeral" format="" title="验证码" desc=""></segment>
+  </crc>
+</message>
